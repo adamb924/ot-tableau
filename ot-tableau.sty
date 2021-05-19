@@ -29,8 +29,8 @@
 \RequirePackage{rotating}
 
 % fancy table and lines
-\RequirePackage{hhline,tabu}
-\newtabulinestyle { dashed=.5pt on 1.5pt  off 1.5pt }
+\RequirePackage{hhline}
+\RequirePackage{arydshln}
 
 % IPA typesetting macros
 \def\ipa#1{#1}
@@ -91,7 +91,6 @@
 % Automatic row lettering
 \newcommand*{\rowletter}{\stepcounter{tableaurow}\alph{tableaurow}. }
 
-% https://tex.stackexchange.com/questions/382843/using-the-tabu-environment-within-a-conditional-within-newenvironment
 \newenvironment{tableau}[1]{\setcounter{tableaurow}{0}%
 			\gdef\ConstraintString{#1}
 			\StrSubstitute{#1}{s}{c}[\NoS]
@@ -101,10 +100,10 @@
 			\else % finger second
 				\expandafter\@secondoftwo
 			\fi
-			{\begin{tabu}{|r@{\hspace{4pt}}l@{\hspace{3pt}}l||#1|}} % finger first
-			{\begin{tabu}{|l@{\hspace{2pt}}r@{\hspace{4pt}}l||#1|}} % finger second
+			{\begin{tabular}{|r@{\hspace{4pt}}l@{\hspace{3pt}}l||#1|}} % finger first
+			{\begin{tabular}{|l@{\hspace{2pt}}r@{\hspace{4pt}}l||#1|}} % finger second
 			\hhline{|---||*{\ConstraintCount}{-|}}
-			}{\\\hhline{|---||*{\ConstraintCount}{-|}}\end{tabu}}
+			}{\\\hhline{|---||*{\ConstraintCount}{-|}}\end{tabular}}
 
 % draw two lines after the constraints, one line elsewhere
 \def\properlines{\ifthenelse{\thetableaurow=0}%
@@ -142,6 +141,3 @@
 
 \newcommand\const[1]{&\textsc{#1}\UnshadeTheCell}
 \WithSuffix\newcommand\const*[1]{&#1\UnshadeTheCell}
-
-% 2017-07-22: This doesn't work for some reason if it's toward the top of the file
-\newcolumntype{:}{|[dashed]}
