@@ -22,6 +22,18 @@ The \tabl\ package makes it easy to create beautiful optimality-theoretic tablea
 	\end{tableau}
 \end{center}
 
+\begin{tabular}{|l||l|l|}
+\hhline{-||--}
+one & two & three \\
+\hhline{:=::==:}
+one & two & three \\
+\hhline{-||--}
+%\cline{1-1}
+%\hline
+one & two & three \\
+\hhline{-||--}
+\end{tabular}
+
 \begin{verbatim}
 \begin{tableau}{c:c|c}
 \inp{\ips{stap}}        \const{*Complex} \const{Anchor-IO} \const{Contiguity-IO}

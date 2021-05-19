@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{nicematrix}
+\usepackage{tikz}
+\usepackage{arydshln}
+\usepackage{hhline}
+%\NiceMatrixOptions{letter-for-dotted-lines=V}
+\author{Adam Baker}
+\begin{document}
+
+\begin{tabular}{|l||l:l|}%
+\hline\noalign{\vskip-4pt}
+ \rule{0pt}{14pt}
+%\multicolumn{3}{l}{}\\[-20pt]
+%\vspace{1pt} & & \\[-20pt]
+\hhline{-||--}
+one & two & three \\
+\hhline{-||--}
+one & two & three \\
+\hhline{-||--}
+one & two & three \\
+\hhline{:=::==:}
+one & two & three \\
+\hhline{-||--}
+%\cline{1-1}
+%\hline
+one & two & three \\
+\hhline{-||--}
+\end{tabular}
+
+%\begin{NiceTabular}{cccc:c}
+%%\hline
+%%\hhline{-||----}
+%1 & 2 & 3 & 4 & 5 \\
+%%\hline
+%%\hhline{:=::====:}
+%6 & 7 & 8 & 9 & 10 \\
+%%\hline
+%%\hhline{-||----}
+%11 & 12 & 13 & 14 & 15
+%%\hline
+%%\hhline{-||----}
+%\end{NiceTabular}
+
+\end{document}

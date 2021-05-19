@@ -1,0 +1,41 @@
+\documentclass{article}
+
+
+\usepackage{color}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{multirow}
+\usepackage{makecell}
+
+\usepackage{arydshln}
+\usepackage{hhline}
+
+\begin{document}
+\begin{table}[!htbp]
+ \renewcommand{\arraystretch}{1.5}
+ \small
+ \centering
+ \begin{tabular}{|c|c|c|c|c|}
+\hline\noalign{\vskip-4pt}
+ \rule{0pt}{14pt} & a & b & c & d\\
+ \hhline{=====}
+ \multirow{8}{*}{\rotatebox[origin=c]{90}{YES}} & a & b & c & d\\
+ \hhline{~----}
+ & a & \cellcolor{gray!20}b & c & d\\
+ \hhline{~----}
+ & a & b & c & d\\
+ \Xcline{2-5}{1.5pt}
+ & a & b & c & d\\
+ \hhline{~----}
+ & a & b & c & d\\
+ \Xcline{2-5}{1.5pt}
+ & a & b & c & d\\
+ \hhline{~----}
+ & a & b & c & d\\
+ \hhline{~----}
+ & a & b & c & d\\
+ \hline
+ \end{tabular}\label{table:1}
+\end{table}
+\end{document}
