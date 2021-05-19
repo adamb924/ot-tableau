@@ -9,6 +9,11 @@
 \newif\ifottableau@circledviolations
 \DeclareOption{circledviolations}{\ottableau@circledviolationstrue}
 
+% Package option: usehhline
+\newif\ifottableau@usehhline
+\ottableau@usehhlinefalse % default to false
+\DeclareOption{usehhline}{\ottableau@usehhlinetrue}
+
 % Package option: shadedcells
 \newif\ifottableau@shadedcells
 \DeclareOption{shadedcells}{\ottableau@shadedcellstrue}
@@ -29,7 +34,12 @@
 \RequirePackage{rotating}
 
 % fancy table and lines
-\RequirePackage{hhline}
+% 2021-05-19: Removing hhline, which makes the nice lines, because hhline conflicts with arydshln
+\ifottableau@usehhline 
+	\RequirePackage{hhline}
+\else
+\fi
+
 \RequirePackage{arydshln}
 
 % IPA typesetting macros
@@ -91,10 +101,20 @@
 % Automatic row lettering
 \newcommand*{\rowletter}{\stepcounter{tableaurow}\alph{tableaurow}. }
 
+
+
+
 \newenvironment{tableau}[1]{\setcounter{tableaurow}{0}%
 			\gdef\ConstraintString{#1}
 			\StrSubstitute{#1}{s}{c}[\NoS]
 			\StrCount{\NoS}{c}[\ConstraintCount]%
+			\ifottableau@usehhline 
+				\gdef\TopOrBottomLine{\hhline{---||*{\ConstraintCount}{-|}}}
+				\gdef\DoubleLine{\hhline{---||*{\ConstraintCount}{-|}}}
+			\else 
+				\gdef\TopOrBottomLine{\hline}
+				\gdef\DoubleLine{\hline\hline}
+			\fi
 			\ifottableau@fingerfirst % finger first: this is the default
 				\expandafter\@firstoftwo
 			\else % finger second
@@ -102,13 +122,13 @@
 			\fi
 			{\begin{tabular}{|r@{\hspace{4pt}}l@{\hspace{3pt}}l||#1|}} % finger first
 			{\begin{tabular}{|l@{\hspace{2pt}}r@{\hspace{4pt}}l||#1|}} % finger second
-			\hhline{|---||*{\ConstraintCount}{-|}}
-			}{\\\hhline{|---||*{\ConstraintCount}{-|}}\end{tabular}}
-
+			\TopOrBottomLine
+			}{\\\TopOrBottomLine\end{tabular}}
+			
 % draw two lines after the constraints, one line elsewhere
 \def\properlines{\ifthenelse{\thetableaurow=0}%
-					{\\\hhline{:===::*{\ConstraintCount}{=:}}}%
-					{\\\hhline{|---||*{\ConstraintCount}{-|}}}}
+					{\\\DoubleLine}%
+					{\\\TopOrBottomLine}}
 
 \newcommand\cand[2][]{\OptimalOff\properlines%
 						\ifottableau@fingerfirst \ipa{#1} \else \rowletter \fi%
