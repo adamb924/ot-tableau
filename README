@@ -1,3 +1,10 @@
-This material is subject to the LaTeX Project Public License. See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html  for the details of that license.
+
+
+
+The package makes it easy to create beautiful optimality-theoretic tableaux. The LaTeX source is visually very similar to a formatted tableau, which makes working with the source code painless (well, less painful). A variety of stylistic variants are available to suit personal taste.
+
+The package is maintained by Adam Baker (adam@adambaker.org). 
+
+This material is subject to the LaTeX Project Public License. See http://www.latex-project.org/lppl.txt for the details of that license.
 
 Requires packages: xstring, amssymb, bbding, suffix, colortbl, rotating, hhline (optionally), arydshln, tipa (optionally)
