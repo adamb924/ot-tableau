@@ -11,11 +11,11 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 % 
-% The Current Maintainer of this work is Adam Bker.
+% The Current Maintainer of this work is Adam Baker.
 %
 % This work consists of the files ot-tableau.sty and ot-tableau.tex.
 
-\ProvidesPackage{ot-tableau}[2021-05-19]
+\ProvidesPackage{ot-tableau}[2023-08-01]
 
 % Package option: notipa
 \newif\ifottableau@tipa
@@ -159,20 +159,40 @@
 									&
 									\ifottableau@fingerfirst \rowletter \else #1 \fi%
 								&#2\ExclOff}
-
-\def\vio#1{&%
+% add multi-input candidates (added by Alan Munn 2023/08/01)
+\newcommand\mcand[2][]{\OptimalOff\properlines%
+						\ifottableau@fingerfirst \ipa{#1}  \fi%
+						&
+						\ifottableau@fingerfirst  \else \ipa{#1} \fi%
+						&
+						\ipa{#2}\ExclOff}
+						
+\WithSuffix\newcommand\mcand*[2][]{\OptimalOff\properlines%
+									\ifottableau@fingerfirst #1  \fi%
+									&
+									\ifottableau@fingerfirst  \else #1 \fi%
+								&#2\ExclOff}
+								
+% add starred version of \vio to remove vertical lines for initial multi-input candidates
+% (added by Alan Munn 2023/08/01)
+\NewDocumentCommand{\vio}{sm}{
+	\IfBooleanTF{#1}
+	{&\multicolumn{1}{c}{#2}}
+	{&%
 			\ifottableau@circledviolations 
 				\ifottableau@optimal 
-					\StrSubstitute{#1}{*}{\CircledViolationMarker} 
+					\StrSubstitute{#2}{*}{\CircledViolationMarker} 
 				\else 
-					\StrSubstitute{#1}{*}{\ViolationMarker} 
+					\StrSubstitute{#2}{*}{\ViolationMarker} 
 				\fi 
 			\else 
-				\StrSubstitute{#1}{*}{\ViolationMarker}
+				\StrSubstitute{#2}{*}{\ViolationMarker}
 			\fi
 		\ifottableau@excl \ifottableau@shadedcells \ShadeTheCell \fi \fi%
-		\ifottableau@excl \empty \else \IfSubStr{#1}{!}{\ExclOn}{\ExclOff} \fi%
+		\ifottableau@excl \empty \else \IfSubStr{#2}{!}{\ExclOn}{\ExclOff} \fi%
 		}
+		}
+
 
 \newcommand\inp[1]{\multicolumn{3}{|l||}{#1}}
 
